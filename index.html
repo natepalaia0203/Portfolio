@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nate Palaia | Aerospace Engineer</title>
+<style>
+  :root {
+    --bg: #0f1419;
+    --bg-alt: #161c24;
+    --text: #e6edf3;
+    --text-dim: #8b98a5;
+    --accent: #4dd0c4;
+    --line: #2a323d;
+    --font-display: "Space Grotesk", "Segoe UI", sans-serif;
+    --font-body: "Inter", "Segoe UI", sans-serif;
+    --font-mono: "JetBrains Mono", "Consolas", monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.6;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: sticky;
+    top: 0;
+    background: rgba(15, 20, 25, 0.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+    z-index: 100;
+  }
+  nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+  }
+  .nav-logo {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity: 0.25;
+    mask-image: radial-gradient(ellipse 60% 50% at 50% 40%, black 0%, transparent 100%);
+  }
+  .hero-content { position: relative; z-index: 1; }
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    color: var(--accent);
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 7vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    max-width: 14ch;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero p {
+    color: var(--text-dim);
+    font-size: 1.1rem;
+    max-width: 50ch;
+    margin-bottom: 32px;
+  }
+  .btn-row { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: 1px solid var(--accent);
+    transition: all 0.2s;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+  }
+  .btn-primary:hover { background: transparent; color: var(--accent); }
+  .btn-secondary { color: var(--text); border-color: var(--line); }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ===== SECTION HEADERS ===== */
+  section { padding: 100px 0; }
+  .section-label {
+    font-family: var(--font-mono);
+    color: var(--accent);
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 700;
+    margin-bottom: 48px;
+  }
+
+  /* ===== ABOUT ===== */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .about-photo {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+  }
+  .about-text p { margin-bottom: 16px; color: var(--text-dim); }
+  .about-text strong { color: var(--text); }
+  .about-list {
+    list-style: none;
+    margin: 20px 0;
+    border-left: 2px solid var(--accent);
+    padding-left: 20px;
+  }
+  .about-list li {
+    margin-bottom: 14px;
+    color: var(--text-dim);
+  }
+
+  /* ===== PROJECTS ===== */
+  .project {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--bg-alt);
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+  .project-images {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    background: var(--line);
+  }
+  .project-images.single { grid-template-columns: 1fr; }
+  .project-images img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    display: block;
+  }
+  .project-images.single img { height: 360px; }
+  .project-body { padding: 28px; }
+  .project-tag {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+  .project-body h3 {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+  }
+  .project-body p {
+    color: var(--text-dim);
+    margin-bottom: 18px;
+  }
+  .project-links { display: flex; gap: 20px; }
+  .project-links a {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .project-links a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  /* ===== EXPANDABLE DETAILS ===== */
+  .details {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    margin-top: 16px;
+    overflow: hidden;
+  }
+  .details summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 14px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text);
+    background: var(--bg-alt);
+    transition: color 0.2s;
+  }
+  .details summary::-webkit-details-marker { display: none; }
+  .details summary::after {
+    content: "+";
+    font-family: var(--font-mono);
+    color: var(--accent);
+    font-size: 1.2rem;
+    transition: transform 0.2s;
+  }
+  .details[open] summary::after { transform: rotate(45deg); }
+  .details summary:hover { color: var(--accent); }
+  .details-content {
+    padding: 18px;
+    border-top: 1px solid var(--line);
+    color: var(--text-dim);
+  }
+  .details-content p { margin-bottom: 12px; }
+  .details-content p:last-child { margin-bottom: 0; }
+  .details-content h4 {
+    color: var(--text);
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+  }
+  .details-content p strong {
+    display: block;
+    color: var(--accent);
+    margin-top: 24px;
+    margin-bottom: 8px;
+  }
+  .details-content p:has(strong):first-of-type strong { margin-top: 0; }
+  .details-content ul {
+    list-style: none;
+    margin-bottom: 8px;
+  }
+  .details-content ul li {
+    padding-left: 18px;
+    position: relative;
+    margin-bottom: 6px;
+  }
+  .details-content ul li::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  /* ===== CONTACT ===== */
+  .contact-box {
+    border: 1px solid var(--line);
+    background: var(--bg-alt);
+    border-radius: 8px;
+    padding: 48px;
+    text-align: center;
+  }
+  .contact-box p {
+    color: var(--text-dim);
+    margin-bottom: 28px;
+    font-size: 1.05rem;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 32px 0;
+    text-align: center;
+  }
+  footer p {
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    font-family: var(--font-mono);
+  }
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 16px;
+  }
+  .social-links a { color: var(--text-dim); font-size: 0.9rem; font-weight: 600; }
+  .social-links a:hover { color: var(--accent); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .about-photo { max-width: 220px; }
+    .project-images { grid-template-columns: 1fr; }
+    .project-images img { height: 220px; }
+    .nav-links { gap: 16px; }
+    section { padding: 64px 0; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <span class="nav-logo">N. PALAIA</span>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<header class="hero">
+  <div class="container hero-content">
+    <div class="hero-eyebrow">Aerospace Engineering — The Ohio State University</div>
+    <h1>Building systems that <span>fly, sense, and navigate</span> on their own.</h1>
+    <p>
+      I'm Nate Palaia, an aerospace engineering student focused on UAS, autonomy,
+      robotics, and signal processing — turning hands-on projects into
+      real-world systems.
+    </p>
+    <div class="btn-row">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="\Users\natep\simplefolio\src\assets\Nathaniel_Palaia_Resume.pdf" target="_blank" rel="noreferrer" class="btn btn-secondary">View Resume</a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== ABOUT ===== -->
+<section id="about">
+  <div class="container">
+    <div class="section-label">About</div>
+    <h2 class="section-title">Who I am</h2>
+    <div class="about-grid">
+      <!-- TODO: replace with your photo: images/profile.jpg -->
+      <img src="\Users\natep\OneDrive - The Ohio State University\Desktop\Portfolio\Images\profile2.png" alt="Nate Palaia" class="about-photo">
+      <div class="about-text">
+        <p>
+          I am in my third year of <strong>aerospace engineering</strong> at
+          The Ohio State University. My work spans autonomous systems, robotics,
+          and remote sensing — and I'm drawn to projects involving the guidance, navigation, and control of aircraft as well as understanding and modeling their performance!
+        </p>
+        <ul class="about-list">
+          <li>Led a team of undergraduates designing and building a drone with indoor autonomous flight capabilities.</li>
+          <li>Worked as a research assistant in a geospatial hydrology lab, developing and validating data products from remotely sensed satellite data.</li>
+        </ul>
+        <p>
+          My interests include <strong>UAS, autonomy, robotics, electronics,
+          guidance, navigation, &amp; control, sensing, System Identification, Modeling, Electronics, RF engineering, and signal
+          processing</strong>. I want to work on highly innovative systems that
+          create real-world impact.
+        </p>
+        <p>
+          Outside of engineering, I lead within Cru at OSU, and spend my time
+          weightlifting, gaming, and learning Spanish.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROJECTS ===== -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label">Selected Work</div>
+    <h2 class="section-title">Projects</h2>
+
+    <!-- PROJECT 1 -->
+    <div class="project">
+      <!-- 2x2 image grid: add/remove <img> tags to control the count -->
+      <div class="project-images">
+        <img src="\Users\natep\OneDrive - The Ohio State University\Desktop\Portfolio\Images\Screenshot 2026-08-16 162822.png" alt="Image of large drone with mounted ultrasonic beacon">
+        <img src="\Users\natep\OneDrive - The Ohio State University\Desktop\Portfolio\Images\UAS_2.jpeg" alt ="Image of small FPV racing style drone with exposed solder connections">
+      </div>
+      <div class="project-body">
+        <div class="project-tag">Autonomy / Robotics</div>
+        <h3>Indoor GPS-Denied Autonomous UAS</h3>
+        <p>
+          Led a team of undergraduates in designing and constructing a drone
+          capable of autonomous indoor flight without GPS — covering frame
+          design, sensor integration, and navigation logic.
+        </p>
+        <div class="project-links">
+          <a href="https://github.com/natepalaia0203/UAS_BOLZ" target="_blank" rel="noreferrer">Source Code</a>
+        </div>
+
+        <!-- Expandable details -->
+        <details class="details">
+          <summary>Technical Details</summary>
+          <div class="details-content">
+            <h4>Autonomous Indoor UAV Platform</h4>
+
+            <p><strong>Objective</strong></p>
+            <ul>
+              <li>Build an autonomous UAV capable of indoor navigation using MarvelMind positioning beacons and ArduPilot</li>
+            </ul>
+
+            <p><strong>My Contributions</strong></p>
+            <ul>
+              <li>Led airframe redesign around Pixhawk 6C</li>
+              <li>Integrated telemetry radios, optical flow sensor, companion computer, and propulsion system</li>
+              <li>Configured ArduPilot, ExpressLRS, ESC firmware, and positioning sensors</li>
+              <li>Debugged indoor GPS integration and EKF configuration and established stable GPS connection</li>
+              <li>Diagnosed and resolved power distribution and motor bring-up issues</li>
+              <li>Validated code using Ardupilot Software-in-the-Loop (SITL) program</li>
+              <li>Obtained significant experience with microcontrollers, embedded systems, and serial communication</li>
+            </ul>
+
+            <p><strong>Key Challenges</strong></p>
+            <ul>
+              <li>MarvelMind &harr; ArduPilot compatibility</li>
+              <li>Serial communication and GPS configuration</li>
+              <li>Power system troubleshooting during initial bring-up</li>
+            </ul>
+
+            <p><strong>Results</strong></p>
+            <ul>
+              <li>Achieved stable indoor 3D position fix</li>
+              <li>Validated propulsion and power systems</li>
+              <li>Established hardware platform for future autonomous missions and computer vision integration</li>
+            </ul>
+
+            <p><strong>Skills Demonstrated</strong></p>
+            <ul>
+              <li>Embedded systems</li>
+              <li>UAV integration</li>
+              <li>ArduPilot</li>
+              <li>Electrical debugging</li>
+              <li>RF communications</li>
+              <li>Sensor integration</li>
+              <li>Systems engineering</li>
+            </ul>
+
+            <p><strong>Future Work</strong></p>
+            <ul>
+              <li>Leading a team of 7 undergraduates in developing a new UAS for outdoor sensing and data aquisition missions</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- PROJECT 2 -->
+    <div class="project">
+      <div class="project-images">
+        <img src="\Users\natep\OneDrive - The Ohio State University\Desktop\Portfolio\Images\Exp.PNG" alt="Project 2 photo 1">
+        <img src="\Users\natep\OneDrive - The Ohio State University\Desktop\Portfolio\Images\Tree.jpg" alt="Project 2 photo 2">
+      </div>
+      <div class="project-body">
+        <div class="project-tag">Remote Sensing</div>
+        <h3>Geospatial Hydrology Data Product</h3>
+        <p>
+          Developed and validated a novel data product for environmental
+          management using remotely sensed satellite data as part of an
+          ongoing research role.
+        </p>
+        <div class="project-links">
+          <a href="\Users\natep\simplefolio\src\assets\Poster 2025 Nate Palaia VRAF in Oregon.pdf" target="_blank" rel="noreferrer">My Poster</a>
+          <a href="https://scholar.google.com/citations?user=Uqi3Zp4AAAAJ&hl=en" target="_blank" rel="noreferrer">Google Scholar</a>
+          </div>
+
+        <!-- Expandable details -->
+        <details class="details">
+          <summary>Technical Details</summary>
+          <div class="details-content">
+            <h4>Forest Recovery Geospatial Data Product (Geospatial Data Analytics)</h4>
+
+            <p><strong>Objective</strong></p>
+            <ul>
+              <li>Develop a geospatial data product capable of assessing a burned forest's relatice recovery time</li>
+            </ul>
+
+            <p><strong>My Contributions</strong></p>
+            <ul>
+              <li>Conducted literature review of similar geospatial data products</li>
+              <li>Utilized ArcGIS to merge lithology, soil, slope, aspect, and vegetation layers into a weighted raster</li>
+              <li>Assigned raster weights according to Bisson et al (2006)</li>
+              <li>Validated the product through calculating remotely sensed spectral indices, Normalized Vegetation Index (NDVI) and Enhanced Vegetation Index (EVI)</li>
+              <li>Presented findings at 3rd Annual Interdisplinary Water Research Syposium at Ohio State University</li>
+              <li>Presented findings at the national level at the 2025 American Geophysical Union (AGU) annual meeting</li>
+            </ul>
+
+            <p><strong>Key Challenges</strong></p>
+            <ul>
+              <li>Construction of a representative vegetation layer</li>
+              <li>Development of Python codes for geospatial analyse</li>
+              <li>Management, organization, and analyse of extremely large datasets</li>
+            </ul>
+
+            <p><strong>Results</strong></p>
+            <ul>
+              <li>Developed data product to assess forest recovery time after moderate to severe wildfire events</li>
+              <li>Validated data product through time series analysis of spectral index recovery and saw trends suggesting the validity of the product</li>
+              <li>Established a methodology for recreating the product in other regions of the globe</li>
+              <li>Presented work at the local and national level</li>
+            </ul>
+
+            <p><strong>Skills Demonstrated</strong></p>
+            <ul>
+              <li>Geospatial data processing/analytics</li>
+              <li>Geographic information systems (GIS)</li>
+              <li>Remote Sensing</li>
+              <li>Python for data analytics</li>
+              <li>Pythin for remote sensing</li>
+              <li>Satellite imagery</li>
+              <li>Formal research and presentation skills</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </div>
+        </div>
+      </div>
+    </div>
+
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label">Get In Touch</div>
+    <h2 class="section-title">Contact</h2>
+    <div class="contact-box">
+      <p>Interested in working together or just want to connect? Reach out directly.</p>
+      <a href="mailto:palaia.2@osu.edu" class="btn btn-primary">Email Me</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="social-links">
+      <a href="https://www.linkedin.com/in/natepalaia/" target="_blank" rel="noreferrer">LinkedIn</a>
+      <a href="https://github.com/natepalaia0203" target="_blank" rel="noreferrer">GitHub</a>
+      <a href="https://scholar.google.com/citations?user=Uqi3Zp4AAAAJ&hl=en" target="_blank" rel="noreferrer">Google Scholar</a>
+    </div>
+    <p>&copy; 2026 Nate Palaia</p>
+  </div>
+</footer>
+
+</body>
+</html>
